@@ -1,9 +1,11 @@
 import requests
 from backend.config import Config
 from datetime import datetime
+from database.csv_manager import CSVManager
 
 
 NUTRITION_END_POINT = "https://trackapi.nutritionix.com/v2/natural/nutrients"
+NUTRITION_DB_FILE = "resources/nutrition_data.csv"
 
 
 def get_nutritional_info(food_input):
@@ -22,17 +24,23 @@ def get_nutritional_info(food_input):
         if not foods:
             return "No data found for the input."
 
-        formatted_data = []
+        total_calories = 0
+        total_carbs = 0
+        total_protein = 0
+        total_fats = 0
         for item in foods:
-            food_info = {
-                'Food Name': item.get('food_name'),
-                'Calories Consumed': item.get('nf_calories'),
-                'Carbs (grams)': item.get('nf_total_carbohydrate'),
-                'Protein (grams)': item.get('nf_protein'),
-                'Fats (grams)': item.get('nf_total_fat'),
-                'Time of Consumption': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            }
-            formatted_data.append(food_info)
-        return formatted_data
+            total_calories += item.get('nf_calories')
+            total_carbs += item.get('nf_total_carbohydrate')
+            total_protein += item.get('nf_protein')
+            total_fats += item.get('nf_total_fat')
+        time_of_consumption = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        CSVManager(NUTRITION_DB_FILE).store_data(
+            time_of_consumption=time_of_consumption,
+            food_input=food_input,
+            total_calories=total_calories,
+            total_carbs=total_carbs,
+            total_protein=total_protein,
+            total_fats=total_fats
+        )
     else:
         return f"Error: {response.status_code}, {response.text}"

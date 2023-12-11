@@ -2,8 +2,11 @@ import requests
 from backend.config import Config
 from datetime import datetime
 
+from database.csv_manager import CSVManager
+
 
 EXERCISE_END_POINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
+EXERCISE_DB_FILE = "resources/exercise_data.csv"
 
 
 def get_exercise_info(exercise_input):
@@ -22,14 +25,14 @@ def get_exercise_info(exercise_input):
         if not exercises:
             return "No data found for the input."
 
-        formatted_data = []
+        total_calories = 0
         for item in exercises:
-            exercise_info = {
-                'Exercise Name': item.get('name'),
-                'Calories Burned': item.get('nf_calories'),
-                'Time of Exercise': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            }
-            formatted_data.append(exercise_info)
-        return formatted_data
+            total_calories += item.get('nf_calories')
+        time_of_exercise = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        CSVManager(EXERCISE_DB_FILE).store_data(
+            time_of_exercise=time_of_exercise,
+            exercise_input=exercise_input,
+            total_calories=total_calories
+        )
     else:
         return f"Error: {response.status_code}, {response.text}"
