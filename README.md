@@ -24,6 +24,7 @@ Python-based application designed to help users monitor and analyze their nutrit
 - Navigate to the project directory: `cd Health-Fitness-Tracker`
 - Install dependencies: `conda create --name fitness --file requirements.txt`
 - Activate the environment: `conda activate fitness`
+- Create a `.env` file in the project root directory based on the `.env.example` template.
 - Run the application: `python main.py`
 
 ## Usage
