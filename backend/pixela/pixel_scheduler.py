@@ -34,6 +34,6 @@ def run_scheduler(username, graph_id):
         time.sleep(60)
 
 
-def start_scheduler(username, graph_id):
+def start_pixel_scheduler(username, graph_id):
     thread = threading.Thread(target=run_scheduler, args=(username, graph_id))
     thread.start()
