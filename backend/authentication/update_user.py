@@ -11,8 +11,10 @@ def update_user(username, age, gender, height, weight, activity_level):
             bmr = calculate_bmr(age, weight, height, gender)
             activity_multiplier = get_activity_multiplier(activity_level)
             token = user['token']
+            email = user['email']
             user.update({
                 'username': username,
+                'email': email,
                 'token': token,
                 'bmr': bmr,
                 'activity_multiplier': activity_multiplier,

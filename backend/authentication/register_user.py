@@ -5,7 +5,7 @@ from database.csv_manager import CSVManager
 from backend.pixela.utils import calculate_bmr, generate_token, get_activity_multiplier
 
 
-def register_user(username, graph_id, age, gender, height, weight, activity_level):
+def register_user(username, email, graph_id, age, gender, height, weight, activity_level):
     token = generate_token()
     agree_terms = "yes"
     not_minor = "yes"
@@ -26,6 +26,7 @@ def register_user(username, graph_id, age, gender, height, weight, activity_leve
             activity_multiplier = get_activity_multiplier(activity_level)
             CSVManager(USER_DB_FILE).store_data(
                 username=username,
+                email=email,
                 token=token,
                 bmr=bmr,
                 activity_multiplier=activity_multiplier
