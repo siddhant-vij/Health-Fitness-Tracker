@@ -1,12 +1,10 @@
 import requests
-
-
-USER_ENDPOINT = "https://pixe.la/v1/users"
+from backend.constants import USER_END_POINT
 
 
 def create_graph(username, token, graph_id):
     color = "shibafu" if graph_id == "weight-gain" else "momiji"
-    graph_url = f"{USER_ENDPOINT}/{username}/graphs"
+    graph_url = f"{USER_END_POINT}/{username}/graphs"
     graph_headers = {
         "X-USER-TOKEN": token
     }

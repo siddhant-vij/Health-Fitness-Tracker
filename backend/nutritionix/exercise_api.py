@@ -1,13 +1,10 @@
 import requests
 from backend.config import Config
 from datetime import datetime
+from backend.constants import EXERCISE_DB_FILE, EXERCISE_END_POINT
 from backend.pixela.graph_pixels import manage_pixel_entry
 
 from database.csv_manager import CSVManager
-
-
-EXERCISE_END_POINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
-EXERCISE_DB_FILE = "resources/exercise_data.csv"
 
 
 def get_exercise_info(exercise_input, username, graph_id):

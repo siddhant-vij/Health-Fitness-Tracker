@@ -1,12 +1,9 @@
 import requests
 from backend.config import Config
 from datetime import datetime
+from backend.constants import NUTRITION_DB_FILE, NUTRITION_END_POINT
 from backend.pixela.graph_pixels import manage_pixel_entry
 from database.csv_manager import CSVManager
-
-
-NUTRITION_END_POINT = "https://trackapi.nutritionix.com/v2/natural/nutrients"
-NUTRITION_DB_FILE = "resources/nutrition_data.csv"
 
 
 def get_nutritional_info(food_input, username, graph_id):

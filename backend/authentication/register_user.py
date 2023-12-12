@@ -1,11 +1,8 @@
 import requests
+from backend.constants import USER_DB_FILE, USER_END_POINT
 from backend.pixela.create_graph import create_graph
 from database.csv_manager import CSVManager
-from .utils import calculate_bmr, generate_token, get_activity_multiplier
-
-
-USER_ENDPOINT = "https://pixe.la/v1/users"
-USER_DB_FILE = "resources/users.csv"
+from backend.pixela.utils import calculate_bmr, generate_token, get_activity_multiplier
 
 
 def register_user(username, graph_id, age, gender, height, weight, activity_level):
@@ -13,7 +10,7 @@ def register_user(username, graph_id, age, gender, height, weight, activity_leve
     agree_terms = "yes"
     not_minor = "yes"
 
-    user_url = USER_ENDPOINT
+    user_url = USER_END_POINT
     user_headers = {'Content-Type': 'application/json'}
     user_body = {
         "token": token,

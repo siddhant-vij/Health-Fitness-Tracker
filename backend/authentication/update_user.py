@@ -1,7 +1,6 @@
+from backend.constants import USER_DB_FILE
 from database.csv_manager import CSVManager
 from backend.pixela.utils import calculate_bmr, get_activity_multiplier
-
-USER_DB_FILE = "resources/users.csv"
 
 
 def update_user(username, age, gender, height, weight, activity_level):

@@ -1,10 +1,6 @@
 import requests
-from datetime import datetime
-from backend.pixela.register_user import USER_DB_FILE
+from backend.constants import USER_DB_FILE, USER_END_POINT
 from database.csv_manager import CSVManager
-
-
-USER_ENDPOINT = "https://pixe.la/v1/users"
 
 
 def get_pixel_value(pixel_url, token):
@@ -22,7 +18,7 @@ def get_pixel_value(pixel_url, token):
 
 
 def update_pixel(username, token, graph_id, quantity, date):
-    pixel_url = f"{USER_ENDPOINT}/{username}/graphs/{graph_id}/{date}"
+    pixel_url = f"{USER_END_POINT}/{username}/graphs/{graph_id}/{date}"
     pixel_headers = {
         "X-USER-TOKEN": token
     }

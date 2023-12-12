@@ -2,10 +2,9 @@ import schedule
 import threading
 import time
 from datetime import datetime
+from backend.constants import USER_DB_FILE
 from backend.pixela.graph_pixels import manage_pixel_entry
 from database.csv_manager import CSVManager
-
-USER_DB_FILE = "resources/users.csv"
 
 
 def calculate_reduction(user):
