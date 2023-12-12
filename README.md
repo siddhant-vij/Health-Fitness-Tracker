@@ -1,6 +1,6 @@
 # Health & Fitness Tracker
 
-Python-based application designed to help users monitor and analyze their nutrition and workout routines. Utilizing natural language processing through Nutritionix's APIs, it simplifies the logging of meals and exercises. The app features a user-friendly Tkinter GUI, making health tracking accessible to everyone.
+Python-based backend designed to help users monitor and analyze their nutrition and workout routines. Utilizing natural language processing through Nutritionix's APIs, it simplifies the logging of meals and exercises. This app makes health tracking accessible to everyone.
 
 ## Table of Contents
 1. [Features](#features)
@@ -17,7 +17,6 @@ Python-based application designed to help users monitor and analyze their nutrit
 - **User Authentication**: Securely manage user data and personal health records.
 - **CSV-Based Data Management**: Organized and efficient storage of user, nutrition, and workout data.
 - **Email Notifications**: Get reminders and alerts to maintain consistent health tracking.
-- **Tkinter GUI**: Interactive and straightforward graphical interface.
 
 ## Installation
 - Clone the repository: `git clone https://github.com/siddhant-vij/Health-Fitness-Tracker.git`
@@ -25,7 +24,7 @@ Python-based application designed to help users monitor and analyze their nutrit
 - Install dependencies: `conda create --name fitness --file requirements.txt`
 - Activate the environment: `conda activate fitness`
 - Create a `.env` file in the project root directory based on the `.env.example` template.
-- Run the application: `python main.py`
+- Run the local tests in the application: `python main.py`
 
 ## Usage
 After launching the application, create an account or log in. Begin by logging your meals and exercises using simple, natural language. Explore the various visualizations and insights generated based on your data.
@@ -48,6 +47,7 @@ Contributions are what make the open-source community such an amazing place to l
 1. **Open a Pull Request**
 
 ## Future Improvements
+- **Tkinter GUI**: Interactive and straightforward graphical interface.
 - **Meal Planner**: Integrate a meal planning feature with recipes and grocery lists based on nutritional goals - refer & use a 3rd party API.
 - **Mobile Application**: Develop a mobile version for convenient on-the-go access.
 - **Advanced Analytics**: Use machine learning to provide personalized health insights and recommendations.
