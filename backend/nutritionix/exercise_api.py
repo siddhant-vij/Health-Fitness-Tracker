@@ -28,6 +28,7 @@ def get_exercise_info(exercise_input, username, graph_id):
             total_calories += item.get('nf_calories')
         time_of_exercise = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         date = datetime.now().strftime("%Y%m%d")
+        total_calories = int(total_calories)
         CSVManager(EXERCISE_DB_FILE).store_data(
             time_of_exercise=time_of_exercise,
             username=username,

@@ -33,6 +33,7 @@ def get_nutritional_info(food_input, username, graph_id):
             total_fats += item.get('nf_total_fat')
         time_of_consumption = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         date = datetime.now().strftime("%Y%m%d")
+        total_calories = int(total_calories)
         CSVManager(NUTRITION_DB_FILE).store_data(
             time_of_consumption=time_of_consumption,
             username=username,

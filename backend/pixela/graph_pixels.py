@@ -1,3 +1,4 @@
+import time
 import requests
 from backend.constants import USER_DB_FILE, USER_END_POINT
 from database.csv_manager import CSVManager
@@ -8,6 +9,9 @@ def get_pixel_value(pixel_url, token):
         "X-USER-TOKEN": token
     }
     response = requests.get(pixel_url, headers=pixel_headers)
+    while response.status_code == 503:
+        time.sleep(5)
+        response = requests.get(pixel_url, headers=pixel_headers)
     if response.status_code == 200:
         data = response.json()
         return data.get("quantity")
@@ -33,6 +37,9 @@ def update_pixel(username, token, graph_id, quantity, date):
         "quantity": str(new_value)
     }
     response = requests.put(pixel_url, json=pixel_body, headers=pixel_headers)
+    while response.status_code == 503:
+        time.sleep(5)
+        response = requests.put(pixel_url, json=pixel_body, headers=pixel_headers)
     return response.status_code == 200
 
 
@@ -47,9 +54,12 @@ def get_user_token(username):
 def manage_pixel_entry(username, graph_id, calorie_data, date):
     token = get_user_token(username)
     if token is None:
-        return "User token not found."
+        print("User token not found.")
+        return False
 
     if not update_pixel(username, token, graph_id, calorie_data, date):
-        return "Failed to update pixel."
+        print("Failed to update pixel.")
+        return False
     else:
-        return "Pixel updated successfully."
+        print("Pixel updated successfully.")
+        return True
