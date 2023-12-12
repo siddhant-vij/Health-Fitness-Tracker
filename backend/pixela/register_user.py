@@ -1,14 +1,14 @@
 import requests
 from backend.pixela.create_graph import create_graph
 from database.csv_manager import CSVManager
-from .utils import generate_token
+from .utils import calculate_bmr, generate_token, get_activity_multiplier
 
 
 USER_ENDPOINT = "https://pixe.la/v1/users"
 USER_DB_FILE = "resources/users.csv"
 
 
-def register_user(username, goal):
+def register_user(username, graph_id, age, gender, height, weight, activity_level):
     token = generate_token()
     agree_terms = "yes"
     not_minor = "yes"
@@ -24,10 +24,14 @@ def register_user(username, goal):
     response = requests.post(user_url, json=user_body, headers=user_headers)
 
     if response.status_code == 200:
-        if create_graph(username, token, goal):
+        if create_graph(username, token, graph_id):
+            bmr = calculate_bmr(age, weight, height, gender)
+            activity_multiplier = get_activity_multiplier(activity_level)
             CSVManager(USER_DB_FILE).store_data(
                 username=username,
-                token=token
+                token=token,
+                bmr=bmr,
+                activity_multiplier=activity_multiplier
             )
             return "User registered successfully"
         else:

@@ -4,14 +4,8 @@ import requests
 USER_ENDPOINT = "https://pixe.la/v1/users"
 
 
-def create_graph(username, token, goal):
-    if goal == "Weight Loss":
-        graph_id = "weight-loss"
-    elif goal == "Weight Gain":
-        graph_id = "weight-gain"
-    else:
-        return False
-    color = "shibafu" if goal == "Weight Gain" else "momiji"
+def create_graph(username, token, graph_id):
+    color = "shibafu" if graph_id == "weight-gain" else "momiji"
     graph_url = f"{USER_ENDPOINT}/{username}/graphs"
     graph_headers = {
         "X-USER-TOKEN": token

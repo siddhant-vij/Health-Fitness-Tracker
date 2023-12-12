@@ -1,6 +1,7 @@
 import requests
 from backend.config import Config
 from datetime import datetime
+from backend.pixela.graph_pixels import manage_pixel_entry
 from database.csv_manager import CSVManager
 
 
@@ -8,7 +9,7 @@ NUTRITION_END_POINT = "https://trackapi.nutritionix.com/v2/natural/nutrients"
 NUTRITION_DB_FILE = "resources/nutrition_data.csv"
 
 
-def get_nutritional_info(food_input):
+def get_nutritional_info(food_input, username, graph_id):
     headers = {
         'Content-Type': 'application/json',
         'x-app-id': Config.NUTRITIONIX_APP_ID,
@@ -34,13 +35,17 @@ def get_nutritional_info(food_input):
             total_protein += item.get('nf_protein')
             total_fats += item.get('nf_total_fat')
         time_of_consumption = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        date = datetime.now().strftime("%Y%m%d")
         CSVManager(NUTRITION_DB_FILE).store_data(
             time_of_consumption=time_of_consumption,
+            username=username,
             food_input=food_input,
             total_calories=total_calories,
             total_carbs=total_carbs,
             total_protein=total_protein,
             total_fats=total_fats
         )
+        if manage_pixel_entry(username, graph_id, total_calories, date):
+            return "Nutritional Data stored successfully."
     else:
         return f"Error: {response.status_code}, {response.text}"
