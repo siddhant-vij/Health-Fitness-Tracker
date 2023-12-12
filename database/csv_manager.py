@@ -19,3 +19,9 @@ class CSVManager:
         with open(self.filename, mode='r', newline='', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             return list(reader)
+
+    def write_data(self, data):
+        with open(self.filename, mode='w', newline='', encoding='utf-8') as file:
+            writer = csv.DictWriter(file, fieldnames=data[0].keys())
+            writer.writeheader()
+            writer.writerows(data)
